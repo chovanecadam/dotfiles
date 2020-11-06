@@ -1,0 +1,27 @@
+# no copyright 
+startup_message off
+vbell off
+defscrollback 6000
+
+hardstatus             alwayslastline
+#hardstatus string '%{= mK}%-Lw%{= KW}%50>%n%f* %t%{= mK}%+Lw%< %{= kG}%-=%D %d %M %Y %c:%s%{-}'
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %d/%m %{W}%c %{g}]'
+
+# don't keep full-screen programs like vim of less in history after closing
+altscreen on
+
+# Allow bold colors - necessary for some reason
+# attrcolor b ".I"
+
+# Tell screen how to set colors. AB = background, AF=foreground
+# termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+
+# Erase background with current bg color
+# defbce "on"
+
+# Enable 256 color term
+term xterm-256color
+
+# open new window in current working directory
+bind c stuff "screen -X chdir \$PWD; screen^M"
+bind ^c stuff "screen -X chdir \$PWD;screen^M"

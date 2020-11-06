@@ -1,0 +1,5 @@
+[user]
+	email = adamachovanec@gmail.com
+	name = Adam Chovanec
+[core]
+	editor = nvim
