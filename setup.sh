@@ -1,17 +1,17 @@
 # hardlinking dotfiles
 
-ln -f ~/.gitconfig     ~/dotfiles/.gitconfig
-ln -f ~/.zshrc         ~/dotfiles/.zshrc
-ln -f ~/.screenrc      ~/dotfiles/.screenrc
-ln -f ~/.tmux.conf     ~/dotfiles/.tmux.conf
+ln -f .gitconfig  ~/.gitconfig
+ln -f .zshrc      ~/.zshrc    
+ln -f .screenrc   ~/.screenrc 
+ln -f .tmux.conf  ~/.tmux.conf
 
 if [[ ! -d "~/.config/nvim/colors" ]]
 then
     mkdir -p ~/.config/nvim/colors
 fi
 
-ln -f ~/.config/nvim/init.vim   ~/dotfiles/init.vim
-ln -f ~/.config/nvim/colors/myown.vim     ~/dotfiles/myown.vim
+ln -f init.vim   ~/.config/nvim/init.vim
+ln -f myown.vim  ~/.config/nvim/colors/myown.vim
 
 # zsh setup
 
@@ -25,9 +25,9 @@ then
     mkdir ~/.zsh
 fi
 
-ln -f ~/zsh/zshsyntax.conf          ~/dotfiles/zshsyntax.conf
-ln -f ~/zsh/zshalias.conf           ~/dotfiles/zshalias.conf
-ln -f ~/zsh/watson.zsh-completion   ~/dotfiles/watson.zsh-completion
+ln -f zshsyntax.conf         ~/zsh/zshsyntax.conf
+ln -f zshalias.conf          ~/zsh/zshalias.conf
+ln -f watson.zsh-completion  ~/zsh/watson.zsh-completion
 
 if [[ ! "getent passwd $LOGNAME | cut -d: -f7" == "/bin/zsh" ]]
 then
