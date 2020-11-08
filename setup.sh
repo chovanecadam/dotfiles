@@ -1,6 +1,6 @@
 #!/bin/bash
 
-apt-get install -qq git screen tmux neovim zsh &>/dev/null
+sudo apt-get install -qq git screen tmux neovim zsh &>/dev/null
 
 ln -f .gitconfig  ~/.gitconfig
 ln -f .screenrc   ~/.screenrc 
@@ -33,6 +33,8 @@ fi
 ln -f zshsyntax.conf         ~/.zsh/zshsyntax.conf
 ln -f zshalias.conf          ~/.zsh/zshalias.conf
 ln -f watson.zsh-completion  ~/.zsh/watson.zsh-completion
+
+git clone https://github.com/zsh-users/zsh-completions.git ~/.zsh/zsh-completions &> /dev/null
 
 if [[ ! "grep $LOGNAME /etc/passwd | cut -d: -f7" == "/bin/zsh" ]]
 then

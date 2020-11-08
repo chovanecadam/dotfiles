@@ -154,8 +154,8 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
-export PATH="$PATH:/usr/local/sbin:/home/kali/.local/bin"
-alias pofol="thundar"
+export PATH="$PATH:/usr/local/sbin:$HOME/.local/bin"
+alias pofol="thundar" # ??
 alias vim="nvim"
 alias vi="nvim"
 
@@ -179,14 +179,14 @@ command_not_found_handler () {
 
 # setopt correct            # auto correct mistakes
 
-source "/home/${LOGNAME}/.zsh/watson.zsh-completion"
+source "$HOME/.zsh/watson.zsh-completion"
 export EDITOR=/snap/bin/nvim
 
 alias xclip="xclip -selection clipboard"
 
 # zsh completitions for ansible and other tools
 # github.com/zsh-users/zsh-completions.git
-fpath=(/home/${LOGNAME}/code/zsh-completions/src $fpath)
+fpath=($HOME/.zsh/zsh-completions/src $fpath)
 
 ##################################################
 ############## SHOULD BE THE LAST ################
