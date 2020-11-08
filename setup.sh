@@ -29,5 +29,7 @@ ln -f ~/zsh/zshsyntax.conf          ~/dotfiles/zshsyntax.conf
 ln -f ~/zsh/zshalias.conf           ~/dotfiles/zshalias.conf
 ln -f ~/zsh/watson.zsh-completion   ~/dotfiles/watson.zsh-completion
 
-chsh -s /bin/zsh
-
+if [[ ! "getent passwd $LOGNAME | cut -d: -f7" == "/bin/zsh" ]]
+then
+    chsh -s /bin/zsh
+fi
