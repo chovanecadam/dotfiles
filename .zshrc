@@ -184,6 +184,10 @@ export EDITOR=/snap/bin/nvim
 
 alias xclip="xclip -selection clipboard"
 
+# zsh completitions for ansible and other tools
+# github.com/zsh-users/zsh-completions.git
+fpath=(/home/adam/code/zsh-completions/src $fpath)
+
 ##################################################
 ############## SHOULD BE THE LAST ################
 ##################################################
