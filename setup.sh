@@ -1,6 +1,6 @@
 #!/bin/bash
 
-apt-get install -qq git screen tmux neovim zsh
+apt-get install -qq git screen tmux neovim zsh &>/dev/null
 
 ln -f .gitconfig  ~/.gitconfig
 ln -f .screenrc   ~/.screenrc 
@@ -19,7 +19,7 @@ ln -f myown.vim  ~/.config/nvim/colors/myown.vim
 curl -sfLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
 https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-vim +PlugInstall +qall &>/dev/null
+nvim +PlugInstall +qall &>/dev/null
 
 # zsh setup
 
