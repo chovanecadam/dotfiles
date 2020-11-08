@@ -15,7 +15,7 @@ ln -f myown.vim  ~/.config/nvim/colors/myown.vim
 
 # zsh setup
 
-if [[ ! "dpkg -s zsh | head -n 2 | grep installed" ]]
+if [[ ! "apt list -qq zsh | grep installed" ]]
 then
     sudo apt install zsh
 fi
@@ -25,9 +25,9 @@ then
     mkdir ~/.zsh
 fi
 
-ln -f zshsyntax.conf         ~/zsh/zshsyntax.conf
-ln -f zshalias.conf          ~/zsh/zshalias.conf
-ln -f watson.zsh-completion  ~/zsh/watson.zsh-completion
+ln -f zshsyntax.conf         ~/.zsh/zshsyntax.conf
+ln -f zshalias.conf          ~/.zsh/zshalias.conf
+ln -f watson.zsh-completion  ~/.zsh/watson.zsh-completion
 
 if [[ ! "getent passwd $LOGNAME | cut -d: -f7" == "/bin/zsh" ]]
 then
