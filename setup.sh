@@ -1,16 +1,12 @@
-# git, tmux and screen
+#!/bin/bash
 
-apt list -qq git    | grep installed &>/dev/null || sudo apt install --yes git    &>/dev/null
-apt list -qq tmux   | grep installed &>/dev/null || sudo apt install --yes tmux   &>/dev/null
-apt list -qq screen | grep installed &>/dev/null || sudo apt install --yes screen &>/dev/null
+apt-get install -qq git screen tmux neovim zsh
 
 ln -f .gitconfig  ~/.gitconfig
 ln -f .screenrc   ~/.screenrc 
 ln -f .tmux.conf  ~/.tmux.conf
 
 # vim setup
-
-apt list -qq neovim | grep installed &>/dev/null || sudo apt install --yes neovim &>/dev/null
 
 if [[ ! -d "${HOME}/.config/nvim/colors" ]]
 then
@@ -20,9 +16,12 @@ fi
 ln -f init.vim   ~/.config/nvim/init.vim
 ln -f myown.vim  ~/.config/nvim/colors/myown.vim
 
-# zsh setup
+curl -sfLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-apt list -qq zsh | grep installed &>/dev/null || sudo apt install --yes zsh &>/dev/null
+vim +PlugInstall +qall &>/dev/null
+
+# zsh setup
 
 ln -f .zshrc      ~/.zshrc    
 
