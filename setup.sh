@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo Installing packages...
 sudo apt-get install -qq git screen tmux neovim zsh &>/dev/null
 
 ln -f .gitconfig  ~/.gitconfig
@@ -36,6 +37,7 @@ ln -f watson.zsh-completion  ~/.zsh/watson.zsh-completion
 
 git clone https://github.com/zsh-users/zsh-completions.git ~/.zsh/zsh-completions &> /dev/null
 
+echo Changing default shell to zsh...
 if [[ ! "grep $LOGNAME /etc/passwd | cut -d: -f7" == "/bin/zsh" ]]
 then
     chsh -s /bin/zsh
