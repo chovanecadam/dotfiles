@@ -179,14 +179,14 @@ command_not_found_handler () {
 
 # setopt correct            # auto correct mistakes
 
-source "/home/adam/.zsh/watson.zsh-completion"
+source "/home/${LOGNAME}/.zsh/watson.zsh-completion"
 export EDITOR=/snap/bin/nvim
 
 alias xclip="xclip -selection clipboard"
 
 # zsh completitions for ansible and other tools
 # github.com/zsh-users/zsh-completions.git
-fpath=(/home/adam/code/zsh-completions/src $fpath)
+fpath=(/home/${LOGNAME}/code/zsh-completions/src $fpath)
 
 ##################################################
 ############## SHOULD BE THE LAST ################
