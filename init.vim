@@ -27,6 +27,10 @@ call plug#end()
 
 colorscheme myown
 
+" syntax highlight for vagrantfiles
+
+au BufRead,BufNewFile Vagrantfile set filetype=ruby
+
 " autoreload on file change
 
 set autoread
