@@ -25,8 +25,6 @@ ln -f .gitconfig  $HOME/.gitconfig
 ln -f .screenrc   $HOME/.screenrc 
 ln -f .tmux.conf  $HOME/.tmux.conf
 
-chown -R $USER:$USER $HOME/.gitconfig $HOME/.screenrc $HOME/.tmux.conf
-
 # vim setup
 
 if [[ ! -d "$HOME/.config/nvim/colors" ]]
@@ -39,8 +37,6 @@ ln -f myown.vim  $HOME/.config/nvim/colors/myown.vim
 
 curl -sfLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-chown -R $USER:$USER $HOME/.gitconfig $HOME/.screenrc $HOME/.tmux.conf  $HOME/.local/ $HOME/.config
 
 nvim +PlugInstall +qall &>/dev/null
 
@@ -59,10 +55,12 @@ ln -f watson.zsh-completion  $HOME/.zsh/watson.zsh-completion
 
 git clone https://github.com/zsh-users/zsh-completions.git $HOME/.zsh/zsh-completions &> /dev/null
 
-chown -R $USER:$USER $HOME/.zshrc $HOME/.zsh
-
 echo Changing default shell to zsh...
 if [[ ! "grep $USER /etc/passwd | cut -d: -f7" == "/bin/zsh" ]]
 then
     chsh -s /bin/zsh $USER
 fi
+
+chown -R $USER:$USER $HOME
+
+echo Setup finished successfully!
