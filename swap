@@ -1,0 +1,12 @@
+#!/bin/bash
+# Swap names of two files
+
+if [[ -z $2 || ! -z $3 ]]
+then
+    echo Usage: $0 'FILE1 FILE2' >&2
+    echo Swaps names of FILE1 and FILE2 >&2
+    exit 1
+fi
+
+TMPFILE=`mktemp /tmp/zshswap.XXXXXX`
+mv "$1" $TMPFILE && mv "$2" "$1" && mv $TMPFILE "$2"

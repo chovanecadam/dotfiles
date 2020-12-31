@@ -63,4 +63,19 @@ fi
 
 chown -R $USER:$USER $HOME
 
+echo Linking swap script
+
+if [[ -e $HOME/.local/bin/swap ]]
+then
+    echo Error: $HOME/.local/bin/swap already exists
+    exit 1
+fi
+
+if [[ ! -e $HOME/.local/bin ]] 
+then
+    mkdir -p $HOME/.local/bin
+fi
+
+ln ./swap $HOME/.local/bin
+
 echo Setup finished successfully!
