@@ -61,7 +61,6 @@ then
     chsh -s /bin/zsh $USER
 fi
 
-chown -R $USER:$USER $HOME
 
 echo Linking swap script
 
@@ -77,5 +76,8 @@ then
 fi
 
 ln ./swap $HOME/.local/bin
+
+# THIS HAS TO BE THE LAST COMMAND
+chown -R $USER:$USER $HOME
 
 echo Setup finished successfully!
