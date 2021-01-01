@@ -44,8 +44,6 @@ then
     exitfnc "$1" "$2"
 fi
 
-exit 0
-
 echo Installing packages...
 apt-get install -qq git screen tmux neovim zsh &>/dev/null
 
