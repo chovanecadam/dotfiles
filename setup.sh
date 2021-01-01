@@ -1,22 +1,50 @@
 #!/bin/bash
 
-if [[ -z $1 || `id -u` > 0 ]]
+set -eo pipefail
+
+ERRMSG=""
+
+exitfnc() {
+    if [[ "$1" == "-q" || "$2" == "-q" ]]
+    then
+        exit 0
+    else
+        echo $ERRMSG >&2
+        exit 1
+    fi
+}
+
+if [[ -z "$1" || `id -u` > 0 ]]
 then
-    echo "Please run as root."
-    echo "Usage: $0 <username>"
-    exit 1
+    ERRMSG="Please run as root.
+            Usage: $0 '<username> [-q]'"
+    exitfnc "$1" "$2"
 fi
 
-USER=$1
-HOME=`grep $USER /etc/passwd | cut -f6 -d:`
+USER="$1"
+HOME=`grep -- "$USER" /etc/passwd | cut -f6 -d:`
 
 if ! id "$1" &>/dev/null
 then
-    echo User $USER doesn\'t exist
-    exit 1
+    ERRMSG="User '$1' doesn\'t exist"
+    exitfnc "$1" "$2"
 fi
 
-set -eo pipefail
+if [[ -z "$HOME" ]]
+then
+    ERRMSG="User '$USER' doesn\'t have a home"
+    exitfnc "$1" "$2"
+fi
+
+if [[ -e "$HOME"/.local/bin/swap ]]
+then
+    ERRMSG="It looks like the script already ran for the user $USER,\
+    because the file $HOME/.local/bin/swap exists.
+    Execute with -q to exit gracefully."
+    exitfnc "$1" "$2"
+fi
+
+exit 0
 
 echo Installing packages...
 apt-get install -qq git screen tmux neovim zsh &>/dev/null
@@ -75,7 +103,7 @@ then
     mkdir -p $HOME/.local/bin
 fi
 
-ln ./swap $HOME/.local/bin
+ln ./swap $HOME/.local/bin/swap
 
 # THIS HAS TO BE THE LAST COMMAND
 chown -R $USER:$USER $HOME
