@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -eo pipefail
-
 ERRMSG=""
 
 exitfnc() {
@@ -82,11 +80,11 @@ ln -f watson.zsh-completion  $HOME/.zsh/watson.zsh-completion
 git clone https://github.com/zsh-users/zsh-completions.git $HOME/.zsh/zsh-completions &> /dev/null
 
 echo Changing default shell to zsh...
+
 if [[ ! "grep $USER /etc/passwd | cut -d: -f7" == "/bin/zsh" ]]
 then
     chsh -s /bin/zsh $USER
 fi
-
 
 echo Linking swap script
 
