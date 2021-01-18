@@ -20,7 +20,7 @@ then
 fi
 
 USER="$1"
-HOME=`grep -- "$USER" /etc/passwd | cut -f6 -d:`
+HOME=`grep -- ^"$USER" /etc/passwd | cut -f6 -d:`
 
 if ! id "$1" &>/dev/null
 then
