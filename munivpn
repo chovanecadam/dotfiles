@@ -1,0 +1,26 @@
+#!/bin/bash
+
+VPN_CONFIG="/home/adam/.fi.muni.ovpn"
+NETWORK_MANAGER_VPN_NAME=".fi.muni"
+
+if [[ `id -u` > 0 ]]
+then
+    echo Only root can run this script.
+    exit 1
+fi
+
+if nmcli c show "$NETWORK_MANAGER_VPN_NAME" | grep GENERAL.STATE &> /dev/null;
+then
+    echo VPN is already running by NetworkManager >&2
+    exit 1
+fi
+
+if pgrep openvpn &>/dev/null;
+then
+    echo VPN is already running >&2
+    echo \`sudo pkill openvpn\` to terminate VPN >&2
+    exit 1
+fi
+
+openvpn --script-security 2 --config "$VPN_CONFIG" --daemon
+echo Kill with: sudo pkill openvpn \(pkill provided by package procps\)

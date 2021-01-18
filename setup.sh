@@ -1,4 +1,15 @@
 #!/bin/bash
+#
+# - installs git screen tmux neovim and zsh
+# - copies config files for each
+# - changes default shell to zsh
+# - adds swap and munivpn scripts
+# - downloads muni openvpn config file
+#
+# TODO: 1. check internet connection (nmcli? ping?)
+#       2. set option to run only offline tasks
+#       3. set option to not include muni vpn connection
+#       4. -h switch and better info about the script
 
 ERRMSG=""
 
@@ -99,9 +110,36 @@ then
     mkdir -p $HOME/.local/bin
 fi
 
-ln ./swap $HOME/.local/bin/swap
+ln ./swap /usr/bin/swap
+chmod 0755 /usr/bin/swap
+
+vpn_config="$HOME/.fi.muni.ovpn"
+
+if which curl &>/dev/null;
+then 
+    wget "https://fadmin.fi.muni.cz/noauth/vpn.mpl?routes=&submit=1" -O "$vpn_config" -q
+else
+    if which wget &>/dev/null;
+    then 
+        curl "https://fadmin.fi.muni.cz/noauth/vpn.mpl?routes=&submit=1" -o "$vpn_config" -s
+    fi
+fi
+
+if which nmcli &>/dev/null;
+then
+    nmcli conn import type openvpn file "$vpn_config"
+    if [[ "$1" != "-q" && "$2" != "-q" ]]
+    then
+        echo "Please setup vpn credentials in NetworkManager GUI"
+    fi
+else
+    echo 'NetworkManager CLI (nmcli) not installed, skipping VPN config.'
+fi
+
+ln ./munivpn /usr/bin/munivpn
 
 # THIS HAS TO BE THE LAST COMMAND
 chown -R $USER:$USER $HOME
+chmod 0755 /usr/bin/munivpn /usr/bin/swap
 
 echo Setup finished successfully!
