@@ -21,6 +21,9 @@ Plug 'w0rp/ale'
 " identation, keywords, syntax, etc.
 Plug 'neovimhaskell/haskell-vim'
 
+" powershell syntax
+Plug 'pprovost/vim-ps1'
+
 call plug#end()
 
 " ================================================ BASIC EDITOR CONF
