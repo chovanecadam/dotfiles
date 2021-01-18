@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VPN_CONFIG="/home/adam/.fi.muni.ovpn"
+VPN_CONFIG="/etc/openvpn/fi.muni.ovpn"
 NETWORK_MANAGER_VPN_NAME=".fi.muni"
 
 if [[ `id -u` > 0 ]]
@@ -9,12 +9,22 @@ then
     exit 1
 fi
 
-if nmcli c show "$NETWORK_MANAGER_VPN_NAME" | grep GENERAL.STATE &> /dev/null;
+if `which nmcli` &>/dev/null;
 then
-    echo VPN is already running by NetworkManager >&2
-    exit 1
+    if nmcli c show "$NETWORK_MANAGER_VPN_NAME" | grep GENERAL.STATE &> /dev/null;
+    then
+        echo VPN is already running by NetworkManager >&2
+        exit 1
+    fi
 fi
 
+which openvpn &>/dev/null
+if [[ $? -eq 0 ]];
+then
+    echo openvpn is not installed >&2
+    exit 1
+fi
+    
 if pgrep openvpn &>/dev/null;
 then
     echo VPN is already running >&2

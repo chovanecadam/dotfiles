@@ -10,6 +10,8 @@
 #       2. set option to run only offline tasks
 #       3. set option to not include muni vpn connection
 #       4. -h switch and better info about the script
+#
+#
 
 ERRMSG=""
 
@@ -45,16 +47,16 @@ then
     exitfnc "$1" "$2"
 fi
 
-if [[ -e "$HOME"/.local/bin/swap ]]
+if [[ -e /etc/openvpn/fi.muni.ovpn ]]
 then
     ERRMSG="It looks like the script already ran for the user $USER,\
-    because the file $HOME/.local/bin/swap exists.
-    Execute with -q to exit gracefully."
+    because the file /etc/openvpn/fi.muni.ovpn exists. Execute with
+    -q to exit gracefully."
     exitfnc "$1" "$2"
 fi
 
 echo Installing packages...
-apt-get install -qq git screen tmux neovim zsh &>/dev/null
+apt-get install -qq git screen tmux neovim zsh openvpn &>/dev/null
 
 ln -f .gitconfig  $HOME/.gitconfig
 ln -f .screenrc   $HOME/.screenrc 
@@ -113,7 +115,7 @@ fi
 ln ./swap /usr/bin/swap
 chmod 0755 /usr/bin/swap
 
-vpn_config="$HOME/.fi.muni.ovpn"
+vpn_config="/etc/openvpn/fi.muni.ovpn"
 
 if which curl &>/dev/null;
 then 
